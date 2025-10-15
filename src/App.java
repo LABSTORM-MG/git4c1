@@ -1,13 +1,17 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class App {
+    private static Scanner sc;
+
     public static void main(String[] args) throws Exception {
-        Scanner sc = new Scanner(System.in);
         boolean run = true;
+
+        sc = new Scanner(System.in);
 
         while (run) {
             printMenu();
-            int option = sc.nextInt();
+            int option = readInt();
 
             switch (option) {
                 case 0:
@@ -17,34 +21,35 @@ public class App {
 
                 case 1:
                     System.out.println("Please provide augend:");
-                    double augend = sc.nextDouble();
+                    double augend = readDouble();
                     System.out.println("Please provide addend:");
-                    double addend = sc.nextDouble();
-                    System.out.println("sum = " + add(augend, addend));
+                    double addend = readDouble();
+                    System.out.printf("sum = %.6f%n", add(augend, addend));
                     break;
 
                 case 2:
                     System.out.println("Please provide minuend:");
-                    double minuend = sc.nextDouble();
+                    double minuend = readDouble();
                     System.out.println("Please provide subtrahend:");
-                    double subtrahend = sc.nextDouble();
-                    System.out.println("difference = " + subtract(minuend, subtrahend));
+                    double subtrahend = readDouble();
+                    System.out.printf("difference = %.6f%n", subtract(minuend, subtrahend));
                     break;
 
                 case 3:
                     System.out.println("Please provide multiplicand:");
-                    double multiplicand = sc.nextDouble();
+                    double multiplicand = readDouble();
                     System.out.println("Please provide multiplicator:");
-                    double multiplicator = sc.nextDouble();
-                    System.out.println("Sum = " + multiplicate(multiplicand, multiplicator));
+                    double multiplicator = readDouble();
+                    ;
+                    System.out.printf("Sum = %.6f%n", multiplicate(multiplicand, multiplicator));
                     break;
 
                 case 4:
                     System.out.println("Please provide dividend:");
-                    double dividend = sc.nextDouble();
+                    double dividend = readDouble();
                     System.out.println("Please provide divisor:");
-                    double divisor = sc.nextDouble();
-                    System.out.println("Sum = " + divide(dividend, divisor));
+                    double divisor = readDouble();
+                    System.out.printf("Sum = %.6f%n", divide(dividend, divisor));
                     break;
 
                 default:
@@ -53,7 +58,43 @@ public class App {
             }
             System.out.println("");
         }
-        sc.close();
+    }
+
+    /*
+     * reads an double from the stdin
+     */
+    private static double readDouble() {
+        double d = 0;
+        boolean run = true;
+        while (run) {
+            try {
+                d = sc.nextDouble();
+                run = false;
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter valid input!");
+                sc.nextLine();
+            }
+        }
+        return d;
+    }
+    
+    
+    /*
+     * reads an int from the stdin
+     */
+    private static int readInt() {
+        int i = 0;
+        boolean run = true;
+        while (run) {
+            try {
+                i = sc.nextInt();
+                run = false;
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter valid input!");
+                sc.nextLine();
+            }
+        }
+        return i;
     }
 
     public static double add(double augend, double addend) {
